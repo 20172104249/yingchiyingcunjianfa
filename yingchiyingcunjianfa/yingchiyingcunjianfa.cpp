@@ -17,7 +17,7 @@ public:
 	}
 	void display()
 	{
-		cout << feet << " feet " << inches << "inches" << endl;
+		cout << feet << " feet " << inches << " inches " << endl;
 	}
 	CFeet operator +(CFeet&o)
 	{
@@ -29,27 +29,26 @@ public:
 	}
 	CFeet operator -(CFeet&o)
 	{
+		int i;
+		inches = inches + feet * 12;
+		o.inches = o.inches + o.feet * 12;
+		i = inches - o.inches;
 		CFeet temp;
-		if (feet < 0)
+		if (i<0)
 		{
-			inches = -1 * inches;
-			inches = feet * 12 + inches;
-			o.inches = o.feet * 12 + o.inches;
-			temp.setvalue((inches - o.inches) / 12, labs(inches - o.inches) % 12);
-		}
-		else
-		{
-			inches = feet * 12 + inches;
-			o.inches = o.feet * 12 + o.inches;
-			if ((inches - o.inches) / 12 == 0)
+			if (i <= -12)
 			{
-				temp.setvalue((inches - o.inches) / 12, (inches - o.inches) % 12);
+				i = -1 * i;
+				temp.setvalue(-1 * (i / 12), i % 12);
 			}
 			else
 			{
-				temp.setvalue((inches - o.inches) / 12, labs(inches - o.inches) % 12);
+				temp.setvalue(i / 12, (i % 12));
 			}
-
+		}
+		else
+		{
+			temp.setvalue(i / 12, i % 12);
 		}
 
 		return temp;
@@ -59,8 +58,8 @@ public:
 int main()
 {
 	CFeet A, B, C, D;
-	A.setvalue(2, 0);
-	B.setvalue(3, 1);
+	A.setvalue(-1, 1);
+	B.setvalue(-3, 1);
 
 	C = A - B;
 	C.display();
